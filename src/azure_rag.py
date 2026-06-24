@@ -80,7 +80,7 @@ def carregar_chunks() -> list[dict]:
 # ---------------------------------------------------------------------------
 # Embeddings (Azure OpenAI ada-002)
 # ---------------------------------------------------------------------------
-def _client_openai(cfg: dict):
+def _client_openai(cfg: dict):  # pragma: no cover
     from openai import AzureOpenAI
 
     return AzureOpenAI(
@@ -90,7 +90,7 @@ def _client_openai(cfg: dict):
     )
 
 
-def embeddings(cfg: dict, textos: list[str]) -> list[list[float]]:
+def embeddings(cfg: dict, textos: list[str]) -> list[list[float]]:  # pragma: no cover
     """Gera embeddings em lote (ada-002, 1536 dims)."""
     client = _client_openai(cfg)
     vetores: list[list[float]] = []
@@ -105,14 +105,14 @@ def embeddings(cfg: dict, textos: list[str]) -> list[list[float]]:
 # ---------------------------------------------------------------------------
 # Azure AI Search — criação do índice e upload (campo vetorial HNSW)
 # ---------------------------------------------------------------------------
-def _index_client(cfg: dict):
+def _index_client(cfg: dict):  # pragma: no cover
     from azure.core.credentials import AzureKeyCredential
     from azure.search.documents.indexes import SearchIndexClient
 
     return SearchIndexClient(cfg["search_endpoint"], AzureKeyCredential(cfg["search_key"]))
 
 
-def _search_client(cfg: dict):
+def _search_client(cfg: dict):  # pragma: no cover
     from azure.core.credentials import AzureKeyCredential
     from azure.search.documents import SearchClient
 
@@ -121,7 +121,7 @@ def _search_client(cfg: dict):
     )
 
 
-def criar_indice(cfg: dict) -> None:
+def criar_indice(cfg: dict) -> None:  # pragma: no cover
     """Cria (ou recria) o índice com campo vetorial e perfil HNSW."""
     from azure.search.documents.indexes.models import (
         HnswAlgorithmConfiguration,
@@ -157,7 +157,7 @@ def criar_indice(cfg: dict) -> None:
     client.create_or_update_index(indice)
 
 
-def indexar(cfg: dict) -> int:
+def indexar(cfg: dict) -> int:  # pragma: no cover
     """Pipeline completo de indexação. Retorna o nº de documentos enviados."""
     chunks = carregar_chunks()
     print(f"Runbooks: {len(set(c['file'] for c in chunks))} arquivos, {len(chunks)} chunks.")
@@ -176,7 +176,7 @@ def indexar(cfg: dict) -> int:
 # ---------------------------------------------------------------------------
 # Consulta — vector search + geração
 # ---------------------------------------------------------------------------
-def buscar(cfg: dict, pergunta: str, top_k: int = TOP_K) -> list[dict]:
+def buscar(cfg: dict, pergunta: str, top_k: int = TOP_K) -> list[dict]:  # pragma: no cover
     """Embeda a pergunta e faz vector search top_k no Azure AI Search."""
     from azure.search.documents.models import VectorizedQuery
 
@@ -191,7 +191,7 @@ def buscar(cfg: dict, pergunta: str, top_k: int = TOP_K) -> list[dict]:
     ]
 
 
-def gerar_resposta(cfg: dict, pergunta: str, contextos: list[dict]) -> str:
+def gerar_resposta(cfg: dict, pergunta: str, contextos: list[dict]) -> str:  # pragma: no cover
     """Gera a resposta final com GPT-4o-mini, ancorada nos contextos recuperados."""
     client = _client_openai(cfg)
     blocos = "\n\n".join(f"[{c['file']}]\n{c['text']}" for c in contextos)
@@ -212,7 +212,7 @@ def gerar_resposta(cfg: dict, pergunta: str, contextos: list[dict]) -> str:
     return resp.choices[0].message.content or ""
 
 
-def responder(cfg: dict, pergunta: str, top_k: int = TOP_K) -> dict:
+def responder(cfg: dict, pergunta: str, top_k: int = TOP_K) -> dict:  # pragma: no cover
     """Orquestra busca + geração. Reutilizado pelo Semantic Kernel (RunbookPlugin)."""
     fontes = buscar(cfg, pergunta, top_k)
     resposta = gerar_resposta(cfg, pergunta, fontes)
@@ -228,7 +228,7 @@ def _imprimir(saida: dict) -> None:
         print(f"  - {f['file']:<24} relevância={f['score']:.4f}")
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     ap = argparse.ArgumentParser(description="RAG com Azure AI Search + GPT-4o-mini")
     ap.add_argument("pergunta", nargs="?", help="pergunta em linguagem natural")
     ap.add_argument("--index", action="store_true", help="cria o índice e indexa os runbooks")

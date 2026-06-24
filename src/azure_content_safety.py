@@ -42,7 +42,7 @@ TEXTOS = [
 ]
 
 
-def _config() -> tuple[str, str]:
+def _config() -> tuple[str, str]:  # pragma: no cover
     try:
         from dotenv import load_dotenv
 
@@ -61,7 +61,7 @@ def _categorias_de(resposta) -> dict:
     return {item.category: item.severity for item in resposta.categories_analysis}
 
 
-def analisar(endpoint: str, chave: str, texto: str) -> dict:
+def analisar(endpoint: str, chave: str, texto: str) -> dict:  # pragma: no cover
     """Chama a API de Content Safety para um texto e retorna severidades."""
     from azure.ai.contentsafety import ContentSafetyClient
     from azure.ai.contentsafety.models import AnalyzeTextOptions
@@ -90,7 +90,7 @@ def _render(linhas: list[tuple]) -> None:
             print(" | ".join(str(x) for x in ln))
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     endpoint, chave = _config()
     if not endpoint or not chave or chave == "your_key_here":
         print(

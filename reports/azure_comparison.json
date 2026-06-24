@@ -1,0 +1,91 @@
+{
+  "bedrock_habilitado": false,
+  "gemini_habilitado": false,
+  "resultados": [
+    {
+      "prompt": "Explique a diferença entre NAT Gateway e Internet Gateway na AWS",
+      "modelos": [
+        {
+          "modelo": "gpt-4o-mini",
+          "modo": "stub",
+          "erro": "No module named 'openai'",
+          "latencia_ms": null,
+          "tokens_in": null,
+          "tokens_out": null,
+          "tokens_total": null,
+          "custo_usd": null,
+          "qualidade": null,
+          "resposta": ""
+        }
+      ]
+    },
+    {
+      "prompt": "Quais são os 5 principais riscos de segurança em uma VPC pública?",
+      "modelos": [
+        {
+          "modelo": "gpt-4o-mini",
+          "modo": "stub",
+          "erro": "No module named 'openai'",
+          "latencia_ms": null,
+          "tokens_in": null,
+          "tokens_out": null,
+          "tokens_total": null,
+          "custo_usd": null,
+          "qualidade": null,
+          "resposta": ""
+        }
+      ]
+    },
+    {
+      "prompt": "Escreva um script Python para listar instâncias EC2 paradas",
+      "modelos": [
+        {
+          "modelo": "gpt-4o-mini",
+          "modo": "stub",
+          "erro": "No module named 'openai'",
+          "latencia_ms": null,
+          "tokens_in": null,
+          "tokens_out": null,
+          "tokens_total": null,
+          "custo_usd": null,
+          "qualidade": null,
+          "resposta": ""
+        }
+      ]
+    },
+    {
+      "prompt": "Compare Kubernetes e ECS para cargas de trabalho de produção",
+      "modelos": [
+        {
+          "modelo": "gpt-4o-mini",
+          "modo": "stub",
+          "erro": "No module named 'openai'",
+          "latencia_ms": null,
+          "tokens_in": null,
+          "tokens_out": null,
+          "tokens_total": null,
+          "custo_usd": null,
+          "qualidade": null,
+          "resposta": ""
+        }
+      ]
+    },
+    {
+      "prompt": "Qual a diferença entre RTO e RPO em disaster recovery?",
+      "modelos": [
+        {
+          "modelo": "gpt-4o-mini",
+          "modo": "stub",
+          "erro": "No module named 'openai'",
+          "latencia_ms": null,
+          "tokens_in": null,
+          "tokens_out": null,
+          "tokens_total": null,
+          "custo_usd": null,
+          "qualidade": null,
+          "resposta": ""
+        }
+      ]
+    }
+  ]
+}

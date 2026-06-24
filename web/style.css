@@ -1,0 +1,121 @@
+/* style.css — tema escuro do dashboard de comparação Azure x AWS x GCP. */
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #30363d;
+  --txt: #e6edf3;
+  --muted: #8b949e;
+  --azure: #0078d4;   /* azul Azure */
+  --azure2: #50e6ff;  /* ciano Azure */
+  --aws: #ff9900;     /* laranja AWS */
+  --gcp: #4285f4;     /* azul Google */
+  --star: #f5c518;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--txt); line-height: 1.6;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+code { font-family: "SF Mono", Consolas, monospace; background: #21262d;
+  padding: 1px 6px; border-radius: 4px; font-size: .9em; }
+
+/* Hero */
+.hero {
+  background: radial-gradient(circle at 20% 0%, #06304f 0%, var(--bg) 60%);
+  padding: 64px 0 40px; border-bottom: 1px solid var(--border);
+}
+.badge {
+  display: inline-block; font-size: .8rem; color: var(--azure2);
+  border: 1px solid var(--azure); border-radius: 20px; padding: 3px 12px;
+  letter-spacing: .5px; text-transform: uppercase;
+}
+.hero h1 { font-size: 2.6rem; margin: 16px 0 8px; }
+.hero .arrow { color: var(--muted); }
+.sub { color: var(--muted); max-width: 740px; font-size: 1.1rem; }
+.sub strong { color: var(--azure2); }
+.skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.skills span {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 10px; font-size: .85rem;
+}
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 14px;
+  padding-bottom: 14px; position: sticky; top: 0; background: var(--bg);
+  z-index: 5; border-bottom: 1px solid var(--border); }
+.tabs a { color: var(--muted); text-decoration: none; padding: 6px 12px;
+  border-radius: 6px; font-size: .92rem; }
+.tabs a:hover { color: var(--txt); background: var(--panel); }
+
+/* Sections */
+section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+h2 { font-size: 1.6rem; margin-bottom: 12px; }
+h3 { margin: 22px 0 10px; font-size: 1.1rem; }
+.muted { color: var(--muted); font-size: .95rem; }
+.star { font-size: .9rem; color: var(--star); border: 1px solid var(--star);
+  border-radius: 6px; padding: 1px 8px; vertical-align: middle; }
+.callout { background: var(--panel); border-left: 3px solid var(--azure);
+  padding: 12px 16px; border-radius: 0 6px 6px 0; margin-top: 18px; }
+
+/* Cards & tables */
+.card { background: var(--panel); border: 1px solid var(--border);
+  border-radius: 10px; padding: 4px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border);
+  vertical-align: top; }
+th { color: var(--muted); font-weight: 600; position: sticky; top: 0; }
+tr:last-child td { border-bottom: none; }
+td.azure-col { color: var(--azure2); }
+td.aws-col { color: var(--aws); }
+td.gcp-col { color: var(--gcp); }
+.tag { font-size: .72rem; padding: 1px 7px; border-radius: 10px; }
+.tag.real { background: #1f6f3f; color: #b9f6ca; }
+.tag.stub { background: #5a3a00; color: #ffd699; }
+
+/* SQL/code block */
+pre.sql { background: #0a0e14; border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px; overflow-x: auto; }
+pre.sql code { background: none; color: #79c0ff; font-size: .88rem;
+  line-height: 1.6; padding: 0; }
+
+/* Bar charts (CSS puro) */
+.bars { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.bar-row { display: grid; grid-template-columns: 230px 1fr auto; align-items: center;
+  gap: 12px; }
+.bar-row .label { color: var(--muted); font-size: .9rem; }
+.bar-track { background: #21262d; border-radius: 6px; height: 26px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 6px; transition: width .6s ease;
+  display: flex; align-items: center; padding-left: 10px; font-size: .8rem;
+  color: #08130a; font-weight: 700; }
+.bar-fill.azure { background: linear-gradient(90deg, #0078d4, #50e6ff); color: #04131f; }
+.bar-fill.aws { background: linear-gradient(90deg, #ff9900, #ffb347); }
+.bar-fill.gcp { background: linear-gradient(90deg, #4285f4, #5a95f5); color: #fff; }
+.bar-row .val { font-size: .85rem; color: var(--txt); min-width: 70px; text-align: right; }
+
+/* Grid */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid2 .card { padding: 18px; }
+.card.azure { border-color: var(--azure); }
+.card.aws { border-color: var(--aws); }
+.grid2 h3 { margin-top: 0; }
+.grid2 ul { margin-left: 18px; color: var(--muted); }
+.grid2 li { margin: 6px 0; }
+
+/* Qualidade & CI */
+.ci-badge { margin: 14px 0 22px; display: flex; gap: 10px; align-items: center; }
+.quality-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  margin-bottom: 8px; }
+.qcard { background: var(--panel); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px; text-align: center; }
+.qnum { font-size: 1.8rem; font-weight: 800; color: var(--azure2); }
+.qlabel { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+
+footer { padding: 28px 0; color: var(--muted); font-size: .85rem; text-align: center; }
+
+@media (max-width: 680px) {
+  .hero h1 { font-size: 2rem; }
+  .grid2, .bar-row { grid-template-columns: 1fr; }
+  .bar-row .label { margin-bottom: -4px; }
+  .quality-grid { grid-template-columns: repeat(2, 1fr); }
+}

@@ -80,7 +80,7 @@ def _custo(modelo: str, tin: int, tout: int) -> float:
 # ---------------------------------------------------------------------------
 # Backend Azure OpenAI (GPT-4o-mini) — obrigatório
 # ---------------------------------------------------------------------------
-def chamar_azure(prompt: str) -> dict:
+def chamar_azure(prompt: str) -> dict:  # pragma: no cover
     """Invoca o GPT-4o-mini via Azure OpenAI. Retorna métricas + texto."""
     from openai import AzureOpenAI
 
@@ -110,7 +110,7 @@ def chamar_azure(prompt: str) -> dict:
 # ---------------------------------------------------------------------------
 # Backend AWS Bedrock (Claude 3 Haiku) — opcional
 # ---------------------------------------------------------------------------
-def chamar_bedrock(prompt: str) -> dict:
+def chamar_bedrock(prompt: str) -> dict:  # pragma: no cover
     """Invoca o Claude 3 Haiku via Bedrock. Requer credenciais AWS."""
     import boto3
 
@@ -140,7 +140,7 @@ def chamar_bedrock(prompt: str) -> dict:
 # ---------------------------------------------------------------------------
 # Backend GCP Vertex AI (Gemini 1.5 Flash) — opcional
 # ---------------------------------------------------------------------------
-def chamar_gemini(prompt: str) -> dict:
+def chamar_gemini(prompt: str) -> dict:  # pragma: no cover
     """Invoca o Gemini 1.5 Flash via Vertex AI. Requer credenciais GCP."""
     import vertexai
     from vertexai.generative_models import GenerativeModel
@@ -225,7 +225,7 @@ def _render_tabela(resultados: list[dict]) -> None:
             print(" | ".join(ln))
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     ap = argparse.ArgumentParser(description="Compara Azure GPT-4o-mini, Bedrock e Vertex")
     ap.add_argument("--only-azure", action="store_true", help="não chamar AWS nem GCP")
     args = ap.parse_args()

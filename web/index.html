@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+  Dashboard estático — azure-ai-lab.
+  Lê reports/azure_comparison.json em tempo de execução e renderiza a comparação
+  Azure OpenAI vs AWS Bedrock vs GCP Vertex AI. Sem backend: sirva via
+  `python3 -m http.server` na raiz do projeto (ou GitHub Pages).
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure AI Foundry ↔ AWS Bedrock — Dashboard de Comparação</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="badge">Portfólio Multicloud · IA</span>
+      <h1>Azure AI Foundry <span class="arrow">↔</span> AWS Bedrock</h1>
+      <p class="sub">
+        Mesmos prompts, mesmos runbooks, as mesmas métricas em três nuvens.
+        Comparação honesta de custo, latência, qualidade e developer experience —
+        com destaque para a <strong>capacidade única da Azure: Content Safety
+        dedicado</strong> e o <strong>Semantic Kernel</strong> como framework de agentes.
+      </p>
+      <div class="skills" id="skills"></div>
+    </div>
+  </header>
+
+  <nav class="tabs wrap">
+    <a href="#modelos">Modelos</a>
+    <a href="#safety">Content Safety ⭐</a>
+    <a href="#sk">Semantic Kernel</a>
+    <a href="#custo">Custo</a>
+    <a href="#dimensoes">15 Dimensões</a>
+    <a href="#tresnuvens">3 Nuvens (RAG)</a>
+    <a href="#veredito">Veredito</a>
+    <a href="#qualidade">Qualidade & CI</a>
+  </nav>
+
+  <main class="wrap">
+    <!-- 1. Comparação de modelos (dados ao vivo do JSON) -->
+    <section id="modelos">
+      <h2>1. GPT-4o-mini vs Claude 3 Haiku vs Gemini 1.5 Flash</h2>
+      <p class="muted">
+        Fonte: <code>reports/azure_comparison.json</code> (gerado por
+        <code>compare_models.py</code>). <span id="modo-aviso"></span>
+      </p>
+      <div id="tabela-modelos" class="card">Carregando…</div>
+    </section>
+
+    <!-- 2. Content Safety — destaque -->
+    <section id="safety">
+      <h2>2. Azure AI Content Safety <span class="star">⭐ único da Azure</span></h2>
+      <p>
+        O Bedrock oferece <strong>Guardrails</strong> (filtros acoplados ao modelo),
+        mas <strong>não tem um serviço dedicado de classificação de conteúdo</strong>
+        com severidade graduada por categoria, usável fora de qualquer LLM. A Azure tem.
+        Cada texto recebe severidade <strong>0–6</strong> em 4 categorias:
+      </p>
+      <div id="safety-cats" class="bars"></div>
+      <p class="callout">
+        Capacidade <strong>sem equivalente direto no Bedrock</strong>. Roda com
+        <code>make safety</code> sobre 10 textos de exemplo (infra + casos sintéticos).
+      </p>
+    </section>
+
+    <!-- 3. Semantic Kernel -->
+    <section id="sk">
+      <h2>3. Semantic Kernel — framework de agentes nativo da Azure</h2>
+      <p>
+        Equivalente ao <strong>Bedrock Agents</strong>. Aparece com frequência em
+        vagas de IA corporativa Microsoft. O modelo decide automaticamente quais
+        funções chamar (function calling = o "planner" moderno):
+      </p>
+      <pre class="sql"><code>InfraPlugin.compare_services("ECS", "AKS")
+RunbookPlugin.search_runbook("rollback")   # → chama o retriever do azure_rag (RAG)
+
+Pergunta: "Como faço rollback de ECS e diferença para AKS?"
+→ SK planner → search_runbook + compare_services → resposta sintetizada + fontes</code></pre>
+    </section>
+
+    <!-- 4. Custo -->
+    <section id="custo">
+      <h2>4. Custo do mesmo workload</h2>
+      <p class="muted">LLM rápido: 1M tokens entrada + 1M tokens saída (US$).</p>
+      <div id="custo-bars" class="bars"></div>
+      <p class="callout">
+        O <strong>GPT-4o-mini</strong> (US$0,75) fica entre o Gemini Flash (mais barato)
+        e o Claude Haiku (mais caro), com forte qualidade. O lab inteiro custa
+        <strong>~US$2–5/mês</strong>, coberto pelos US$200 do free trial · AI Search no
+        <strong>free tier F1</strong>.
+      </p>
+    </section>
+
+    <!-- 5. 15 dimensões -->
+    <section id="dimensoes">
+      <h2>5. Azure AI Foundry vs AWS Bedrock — 15 dimensões</h2>
+      <div id="tabela-dim" class="card"></div>
+    </section>
+
+    <!-- 6. Três nuvens (RAG) -->
+    <section id="tresnuvens">
+      <h2>6. RAG nas três nuvens</h2>
+      <p class="muted">
+        As mesmas 5 perguntas em AWS (FAISS + Claude), GCP (Vertex + Gemini) e Azure
+        (AI Search + GPT-4o-mini). Fonte: <code>three_clouds_rag_comparison.py</code>.
+      </p>
+      <div id="tabela-3" class="card"></div>
+      <h3>Quando escolher cada nuvem para RAG</h3>
+      <div id="matriz-3" class="card"></div>
+    </section>
+
+    <!-- 7. Veredito -->
+    <section id="veredito">
+      <h2>7. Quando escolher cada nuvem</h2>
+      <div class="grid2">
+        <div class="card azure">
+          <h3>Escolha Azure / AI Foundry</h3>
+          <ul>
+            <li>Stack Microsoft (Entra ID, Office, .NET)</li>
+            <li>Compliance + <strong>moderação dedicada</strong> (Content Safety)</li>
+            <li>Agentes corporativos com <strong>Semantic Kernel</strong></li>
+            <li>Melhor custo/qualidade em chat (GPT-4o-mini)</li>
+          </ul>
+        </div>
+        <div class="card aws">
+          <h3>Continue na AWS / Bedrock</h3>
+          <ul>
+            <li>Claude é o modelo principal (topo em raciocínio/código)</li>
+            <li>Já há peso de workloads/identidade/rede na AWS</li>
+            <li>Quer RAG gerenciado de ponta a ponta (Knowledge Bases)</li>
+          </ul>
+        </div>
+      </div>
+      <p class="callout">
+        <strong>Multicloud é viável:</strong> a camada de prompts/LLM é portável;
+        o lock-in real está nos dados e no RAG gerenciado.
+      </p>
+    </section>
+
+    <!-- 8. Qualidade & CI -->
+    <section id="qualidade">
+      <h2>8. Qualidade &amp; CI/CD</h2>
+      <p class="muted">
+        Código testado e integração contínua via GitHub Actions (gratuito p/ repo
+        público; roda só a lógica local, sem consumir créditos de nuvem).
+      </p>
+      <p class="ci-badge">
+        <a href="https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml" target="_blank" rel="noopener">
+          <img src="https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml/badge.svg" alt="status do CI" />
+        </a>
+        <img src="../docs/coverage.svg" alt="cobertura de testes" />
+      </p>
+      <div class="quality-grid">
+        <div class="qcard"><div class="qnum">36</div><div class="qlabel">testes (pytest)</div></div>
+        <div class="qcard"><div class="qnum">96%</div><div class="qlabel">cobertura da lógica</div></div>
+        <div class="qcard"><div class="qnum">3</div><div class="qlabel">jobs no CI</div></div>
+        <div class="qcard"><div class="qnum">a cada push</div><div class="qlabel">CI automático</div></div>
+      </div>
+      <p class="callout">
+        As chamadas reais às APIs (Azure/AWS/GCP) <strong>não</strong> entram no CI —
+        exigiriam credenciais. A cobertura mede a <strong>lógica determinística</strong>
+        (chunking, custo, qualidade, stubs, render); os adaptadores de rede são
+        marcados com <code>pragma: no cover</code> (integração manual).
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>azure-ai-lab · Engenheiro de nuvem expandindo para Azure AI Foundry ·
+        Região <code>eastus</code> · Azure Free Trial (US$200)</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

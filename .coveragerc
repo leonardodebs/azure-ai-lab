@@ -1,0 +1,22 @@
+# Configuração de cobertura.
+# A cobertura mede a LÓGICA DETERMINÍSTICA (chunking, custo, qualidade, stubs,
+# render, validações). Os adaptadores de rede (chamadas reais a Azure/AWS/GCP)
+# são marcados com `# pragma: no cover` nos próprios arquivos: são testados por
+# integração manual (com credenciais), não no CI — onde não há nuvem.
+[run]
+branch = false
+source = src,scripts
+omit =
+    tests/*
+    */__init__.py
+    scripts/gen_coverage_badge.py
+
+[report]
+show_missing = true
+skip_covered = false
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+    raise NotImplementedError
+    except ImportError
+    ap.error

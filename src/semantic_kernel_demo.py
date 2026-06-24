@@ -59,7 +59,7 @@ SERVICOS = {
 # ---------------------------------------------------------------------------
 # Plugins do Semantic Kernel
 # ---------------------------------------------------------------------------
-def _build_plugins():
+def _build_plugins():  # pragma: no cover
     """Cria as classes de plugin. Importa semantic_kernel só aqui (lazy)."""
     from semantic_kernel.functions import kernel_function
 
@@ -100,7 +100,7 @@ def _build_plugins():
     return InfraPlugin(), RunbookPlugin()
 
 
-async def _executar(pergunta: str) -> str:
+async def _executar(pergunta: str) -> str:  # pragma: no cover
     from semantic_kernel import Kernel
     from semantic_kernel.connectors.ai.function_choice_behavior import (
         FunctionChoiceBehavior,
@@ -143,7 +143,7 @@ async def _executar(pergunta: str) -> str:
     return str(resposta)
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     try:
         from dotenv import load_dotenv
 

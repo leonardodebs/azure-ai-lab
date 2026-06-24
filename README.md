@@ -1,6 +1,7 @@
 # azure-ai-lab — Azure AI Foundry vs AWS Bedrock
 
 [![CI](https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml)
+![Cobertura](docs/coverage.svg)
 
 Laboratório de IA na **Azure (Azure AI Foundry / Azure OpenAI)** comparado lado a
 lado com **AWS Bedrock** e **GCP Vertex AI**, usando os **mesmos prompts de
@@ -85,8 +86,25 @@ make check        # → "Azure AI Foundry: OK"
 | `make compare-3` | Gera o relatório de RAG nas três nuvens |
 | `make report` | Gera todos os relatórios |
 | `make test` | Roda o pytest (sem chamadas reais) |
+| `make coverage` | Mede a cobertura e regenera `docs/coverage.svg` |
+| `make serve` | Sobe o dashboard em http://localhost:8000/web/ |
 
 > ⚠️ Rode `make tf-destroy` ao terminar para **não consumir os créditos do trial**.
+
+---
+
+## Dashboard
+
+Dashboard estático (sem backend) em [`web/`](web/) que lê
+`reports/azure_comparison.json` ao vivo e renderiza as comparações de modelos,
+Content Safety, custo, 15 dimensões e RAG nas 3 nuvens:
+
+```bash
+make compare        # gera o JSON (opcional; sem ele cai em aviso amigável)
+make serve          # abra http://localhost:8000/web/
+```
+
+> Sirva via `http.server` — o protocolo `file://` bloqueia o `fetch` do JSON.
 
 ---
 

@@ -34,7 +34,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 PROVIDERS = ["Microsoft.CognitiveServices", "Microsoft.MachineLearningServices"]
 
 
-def _carregar_env() -> None:
+def _carregar_env() -> None:  # pragma: no cover
     """Carrega o .env (se existir) para popular AZURE_OPENAI_* no os.environ."""
     try:
         from dotenv import load_dotenv
@@ -64,7 +64,7 @@ def _run(args: list[str]) -> tuple[int, str]:
         return 124, "timeout"
 
 
-def checar_cli() -> bool:
+def checar_cli() -> bool:  # pragma: no cover
     """1. az --version — a Azure CLI precisa estar instalada e no PATH."""
     print("[1/4] Azure CLI (az --version)")
     if shutil.which("az") is None:
@@ -85,7 +85,7 @@ def checar_cli() -> bool:
     return True
 
 
-def checar_conta() -> tuple[bool, str]:
+def checar_conta() -> tuple[bool, str]:  # pragma: no cover
     """2. az account show — precisa de uma sessão autenticada (az login)."""
     print("[2/4] Sessão autenticada (az account show)")
     rc, out = _run(["az", "account", "show", "-o", "json"])
@@ -105,7 +105,7 @@ def checar_conta() -> tuple[bool, str]:
         return False, ""
 
 
-def checar_providers(sub_id: str) -> bool:
+def checar_providers(sub_id: str) -> bool:  # pragma: no cover
     """3. Providers Microsoft.CognitiveServices e MachineLearningServices."""
     print("[3/4] Resource Providers registrados")
     todos_ok = True
@@ -126,7 +126,7 @@ def checar_providers(sub_id: str) -> bool:
     return todos_ok
 
 
-def checar_openai() -> bool:
+def checar_openai() -> bool:  # pragma: no cover
     """4. AzureOpenAI client — conexão real ao endpoint (lista os deployments)."""
     print("[4/4] Conexão AzureOpenAI client")
     endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
@@ -163,7 +163,7 @@ def checar_openai() -> bool:
         return False
 
 
-def main() -> int:
+def main() -> int:  # pragma: no cover
     _carregar_env()
     print("=" * 64)
     print("Azure AI Lab — verificação de ambiente (setup_check)")

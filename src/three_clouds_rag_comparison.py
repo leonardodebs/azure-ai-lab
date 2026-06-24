@@ -50,7 +50,7 @@ def _resumo(texto: str, limite: int = 160) -> str:
 # ---------------------------------------------------------------------------
 # Azure — reusa o pipeline real de src/azure_rag.py
 # ---------------------------------------------------------------------------
-def rodar_azure(pergunta: str) -> dict:
+def rodar_azure(pergunta: str) -> dict:  # pragma: no cover
     import azure_rag
 
     cfg = azure_rag._config()
@@ -147,7 +147,7 @@ def gerar_markdown(linhas: list[dict]) -> str:
     return "\n".join(md)
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     try:
         from dotenv import load_dotenv
 

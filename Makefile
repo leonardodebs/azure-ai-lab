@@ -11,7 +11,7 @@ TFDIR ?= terraform
 Q ?= Como resolver erro 502 no ALB?
 
 .PHONY: help install check compare rag rag-index safety sk-demo compare-3 report \
-        tf-init tf-plan tf-apply tf-destroy test fmt clean
+        tf-init tf-plan tf-apply tf-destroy test coverage serve fmt clean
 
 help:  ## Lista os alvos disponíveis
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -66,5 +66,14 @@ report: compare compare-3  ## Gera os relatórios de comparação (modelos + 3 n
 test:  ## Roda a suíte de testes (pytest) — mocka as APIs Azure, sem chamadas reais
 	$(PY) -m pytest
 
-clean:  ## Remove relatórios gerados
-	rm -f reports/azure_comparison.json reports/three_clouds_rag_comparison.md
+coverage:  ## Mede a cobertura e regenera docs/coverage.svg
+	$(PY) -m coverage run -m pytest
+	$(PY) -m coverage report
+	$(PY) scripts/gen_coverage_badge.py
+
+serve:  ## Sobe o dashboard estático em http://localhost:8000/web/
+	@echo "Abra http://localhost:8000/web/  (Ctrl+C para parar)"
+	$(PY) -m http.server 8000
+
+clean:  ## Remove relatórios e artefatos de cobertura gerados
+	rm -f reports/azure_comparison.json reports/three_clouds_rag_comparison.md .coverage
