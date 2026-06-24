@@ -1,0 +1,20 @@
+# ── Azure OpenAI (chat + embeddings) ──────────────────────────────────────
+openai>=1.40.0
+# ── Azure AI Search (índice vetorial gerenciado, HNSW) ────────────────────
+azure-search-documents>=11.5.0
+# ── Azure AI Content Safety (capacidade única — sem equivalente Bedrock) ───
+azure-ai-contentsafety>=1.0.0
+# ── Microsoft Semantic Kernel (framework de agentes da Azure) ─────────────
+semantic-kernel>=1.5.0
+# ── Identidade / utilitários Azure ────────────────────────────────────────
+azure-identity>=1.17.0
+python-dotenv>=1.0.0
+# ── Índice vetorial local para a comparação AWS (FAISS, da Fase 1) ────────
+faiss-cpu>=1.8.0
+numpy>=1.26.0
+# ── Comparação multicloud opcional (Bedrock / Vertex) ─────────────────────
+boto3>=1.34.0
+# ── Saída em tabela no terminal ───────────────────────────────────────────
+rich>=13.7.0
+# ── Testes ────────────────────────────────────────────────────────────────
+pytest>=8.0.0

@@ -1,0 +1,12 @@
+# terraform.tfvars.example — copie para terraform.tfvars e ajuste se necessário.
+# O arquivo terraform.tfvars real é ignorado pelo .gitignore (pode conter dados sensíveis).
+
+location            = "eastus"
+resource_group_name = "rg-azure-ai-lab-eastus"
+openai_account_name = "oai-azure-ai-lab"
+search_service_name = "srch-azure-ai-lab"
+key_vault_name      = "kv-azure-ai-lab"
+
+# Capacidade em milhares de TPM (10 = 10.000 tokens-por-minuto).
+chat_capacity_tpm  = 10
+embed_capacity_tpm = 10

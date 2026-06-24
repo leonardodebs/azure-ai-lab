@@ -1,0 +1,62 @@
+# CI — valida Terraform, roda os testes (com APIs Azure mockadas) e o checkov.
+# Não chama Azure/AWS/GCP de verdade: não consome créditos.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  terraform:
+    name: Terraform fmt & validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.5"
+
+      - name: terraform fmt (check)
+        run: terraform -chdir=terraform fmt -check -recursive
+
+      - name: terraform init (sem backend)
+        run: terraform -chdir=terraform init -backend=false
+
+      - name: terraform validate
+        run: terraform -chdir=terraform validate
+
+  test:
+    name: Pytest (mock Azure)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências de teste
+        # Só pytest: os módulos importam os SDKs de nuvem dentro das funções,
+        # então os testes (lógica determinística) rodam sem instalá-los.
+        run: pip install pytest
+
+      - name: Rodar testes
+        run: python -m pytest
+
+  checkov:
+    name: Checkov (IaC scan)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rodar checkov no Terraform
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: terraform/
+          quiet: true
+          soft_fail: true

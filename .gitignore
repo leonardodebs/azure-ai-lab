@@ -1,0 +1,28 @@
+# Segredos e chaves — NUNCA versionar
+*.pem
+id_rsa*
+*.key
+.env
+azure_credentials.json
+.azure/
+
+# Terraform — state e variáveis com segredos
+*.tfvars
+!*.tfvars.example
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Índice local do RAG (regenerado com --index)
+data/index/
