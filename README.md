@@ -3,6 +3,22 @@
 [![CI](https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/leonardodebs/azure-ai-lab/actions/workflows/ci.yml)
 ![Cobertura](docs/coverage.svg)
 
+**Clouds:**
+![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?style=flat&logo=microsoftazure&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS_Bedrock-FF9900?style=flat&logo=amazonwebservices&logoColor=white)
+![GCP](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat&logo=googlecloud&logoColor=white)
+
+**Stack:**
+![Python](https://img.shields.io/badge/Python_3.12-3776AB?style=flat&logo=python&logoColor=white)
+![Azure OpenAI](https://img.shields.io/badge/Azure_OpenAI-412991?style=flat&logo=openai&logoColor=white)
+![GPT-4o-mini](https://img.shields.io/badge/GPT--4o--mini-74AA9C?style=flat&logo=openai&logoColor=white)
+![Azure AI Search](https://img.shields.io/badge/Azure_AI_Search-0078D4?style=flat&logo=microsoftazure&logoColor=white)
+![Semantic Kernel](https://img.shields.io/badge/Semantic_Kernel-512BD4?style=flat&logo=dotnet&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat&logo=terraform&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=githubactions&logoColor=white)
+![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat&logo=pytest&logoColor=white)
+![Checkov](https://img.shields.io/badge/Checkov-6C43DC?style=flat&logo=checkmarx&logoColor=white)
+
 Laboratório de IA na **Azure (Azure AI Foundry / Azure OpenAI)** comparado lado a
 lado com **AWS Bedrock** e **GCP Vertex AI**, usando os **mesmos prompts de
 infraestrutura e as mesmas métricas** dos projetos irmãos `gcp-vertex-ai` e
