@@ -15,13 +15,13 @@ as três nuvens.
 ```mermaid
 flowchart TB
     subgraph Infra["Infraestrutura (Terraform · azurerm)"]
-        RG[Resource Group<br/>rg-azure-ai-lab-eastus]
-        OAI[Azure OpenAI · S0<br/>oai-azure-ai-lab]
-        D1[Deployment<br/>gpt-4o-mini · 10K TPM]
-        D2[Deployment<br/>text-embedding-ada-002 · 10K TPM]
-        SRCH[Azure AI Search · F1<br/>srch-azure-ai-lab]
-        ST[Storage Account<br/>stazurailab{random}]
-        KV[Key Vault<br/>kv-azure-ai-lab]
+        RG["Resource Group<br/>rg-azure-ai-lab-eastus"]
+        OAI["Azure OpenAI · S0<br/>oai-azure-ai-lab"]
+        D1["Deployment<br/>gpt-4o-mini · 10K TPM"]
+        D2["Deployment<br/>text-embedding-ada-002 · 10K TPM"]
+        SRCH["Azure AI Search · F1<br/>srch-azure-ai-lab"]
+        ST["Storage Account<br/>stazurailab-random"]
+        KV["Key Vault<br/>kv-azure-ai-lab"]
         RG --> OAI --> D1
         OAI --> D2
         RG --> SRCH
@@ -86,10 +86,10 @@ O coração do projeto. Equivalente ao **Bedrock Knowledge Bases**, porém monta
 
 ```mermaid
 flowchart LR
-    MD[5 runbooks .md] --> CHUNK[Chunking por parágrafo<br/>>= 40 chars]
-    CHUNK --> EMB[Embeddings ada-002<br/>lotes de 16 · 1536 dims]
-    EMB --> IDX[Cria índice no AI Search<br/>campo vetorial · perfil HNSW]
-    IDX --> UP[upload_documents<br/>id · file · text · vetor]
+    MD["5 runbooks .md"] --> CHUNK["Chunking por parágrafo<br/>maior ou igual a 40 chars"]
+    CHUNK --> EMB["Embeddings ada-002<br/>lotes de 16 · 1536 dims"]
+    EMB --> IDX["Cria índice no AI Search<br/>campo vetorial · perfil HNSW"]
+    IDX --> UP["upload_documents<br/>id · file · text · vetor"]
 ```
 
 - **Chunking**: `re.split(r"\n\s*\n", texto)` separa por parágrafo; descarta
@@ -105,10 +105,10 @@ flowchart LR
 ```mermaid
 flowchart LR
     Q[Pergunta] --> QE[Embedding da pergunta]
-    QE --> VS[VectorizedQuery<br/>top 3 vizinhos · campo vetor]
-    VS --> CTX[3 chunks + arquivos-fonte]
-    CTX --> GEN[GPT-4o-mini<br/>prompt ancorado + system SRE]
-    GEN --> ANS[Resposta + fontes citadas]
+    QE --> VS["VectorizedQuery<br/>top 3 vizinhos · campo vetor"]
+    VS --> CTX["3 chunks + arquivos-fonte"]
+    CTX --> GEN["GPT-4o-mini<br/>prompt ancorado + system SRE"]
+    GEN --> ANS["Resposta + fontes citadas"]
 ```
 
 - A pergunta é embedada com o mesmo modelo; `VectorizedQuery` recupera os 3
