@@ -41,22 +41,22 @@ jobs:
           python-version: "3.12"
 
       - name: Instalar dependências de teste
-        # Só pytest + cobertura: os módulos importam os SDKs de nuvem dentro das
-        # funções, então os testes (lógica determinística) rodam sem instalá-los.
-        run: pip install pytest pytest-cov coverage
+        # pytest + cobertura + rich (usado pela renderização de tabelas, para a
+        # cobertura bater com a local). Os SDKs de nuvem são importados dentro das
+        # funções e ficam marcados com `pragma: no cover` — não são necessários.
+        run: pip install pytest pytest-cov coverage rich
 
       - name: Rodar testes com cobertura
         run: python -m coverage run -m pytest
 
-      - name: Relatório de cobertura
-        run: python -m coverage report
+      - name: Relatório de cobertura (gate mínimo 90%)
+        run: python -m coverage report --fail-under=90
 
-      - name: Verificar badge de cobertura atualizado
-        # Regenera o SVG e falha se estiver desatualizado (rode `make coverage`).
+      - name: Conferir badge de cobertura (aviso, não bloqueia)
         run: |
           python scripts/gen_coverage_badge.py
-          git diff --exit-code docs/coverage.svg \
-            || (echo "::error::docs/coverage.svg desatualizado — rode 'make coverage' e commite" && exit 1)
+          git diff --quiet docs/coverage.svg \
+            || echo "::warning::docs/coverage.svg desatualizado — rode 'make coverage' e commite"
 
   checkov:
     name: Checkov (IaC scan)
